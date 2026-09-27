@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Първият ход · преподавател</title>
+  <link rel="stylesheet" href="fonts.css?v=20260927.1" />
+  <link rel="stylesheet" href="styles.css?v=20260927.1" />
+</head>
+<body>
+  <main class="shell wide">
+    <div class="topbar">
+      <div class="brand-link">Първият ход · преподавател</div>
+      <div class="row compact">
+        <span class="subbrand" id="admin-key-status">ключ: не е зададен</span>
+        <button id="admin-key-set" class="button" type="button">Админ ключ</button>
+      </div>
+    </div>
+
+    <dialog id="admin-key-dialog" class="key-dialog">
+      <form id="admin-key-form" class="key-dialog-card">
+        <h2>Админ ключ</h2>
+        <label>
+          <span>Ключ</span>
+          <input id="admin-key-input" type="password" autocomplete="current-password" />
+        </label>
+        <div class="actions compact">
+          <button id="admin-key-cancel" class="button" type="button">Отказ</button>
+          <button id="admin-key-clear" class="button danger" type="button">Изчисти</button>
+          <button class="button dark" type="submit">Запази</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Selected game -->
+    <section id="live-panel" class="panel" hidden>
+      <div class="panel-header">
+        <div>
+          <div class="eyebrow" id="live-code">—</div>
+          <h2 id="live-title">—</h2>
+          <div class="status-line" style="margin-top: 0.4rem;">
+            <span id="live-status" class="badge">—</span>
+            <span id="live-current" class="badge muted" hidden>не е текущата игра</span>
+          </div>
+        </div>
+        <div class="actions compact">
+          <button id="live-close" class="button dark" type="button">Затвори играта</button>
+          <button id="live-reveal" class="button primary" type="button">Покажи на телефоните</button>
+          <button id="live-reopen" class="button" type="button">Отвори отново</button>
+          <a id="live-results" class="button" href="results.html" target="_blank" rel="noopener">Резултати ↗</a>
+          <button id="live-csv" class="button" type="button">CSV</button>
+        </div>
+      </div>
+
+      <div class="grid four">
+        <div class="summary-stat"><span class="label">Отговори</span><span class="value" id="stat-count">0</span></div>
+        <div class="summary-stat"><span class="label">Средно</span><span class="value" id="stat-mean">—</span></div>
+        <div class="summary-stat gold"><span class="label">2/3 от средното</span><span class="value" id="stat-target">—</span></div>
+        <div class="summary-stat"><span class="label">Най-близо</span><span class="value" id="stat-winner">—</span></div>
+      </div>
+
+      <div style="margin-top: 1rem; overflow-x: auto;">
+        <table class="table" id="entries-table">
+          <thead>
+            <tr>
+              <th class="hide-sm">Час</th>
+              <th>Име</th>
+              <th class="num">Число</th>
+              <th class="num hide-sm">Разлика</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p class="hint" id="entries-empty" hidden>Все още няма отговори.</p>
+      </div>
+    </section>
+
+    <div class="grid two">
+      <!-- New game -->
+      <section class="panel">
+        <h2>Нова игра</h2>
+        <form id="create-form" class="grid" style="margin-top: 0.6rem;">
+          <label>
+            <span>Заглавие (за вас; студентите не го виждат)</span>
+            <input id="cf-title" type="text" maxlength="80" placeholder="Две трети от средното" />
+          </label>
+          <div class="actions compact">
+            <button class="button primary" type="submit">Създай и отвори</button>
+          </div>
+          <p class="hint" style="margin: 0;">Новата игра става текуща веднага: QR кодът от слайдовете води към нея. Ако друга игра е още отворена, тя се затваря.</p>
+        </form>
+      </section>
+
+      <!-- Join info -->
+      <section class="panel">
+        <h2>Как влизат студентите</h2>
+        <div class="join-display" style="margin-top: 0.6rem;">
+          <div>
+            <div id="join-url" class="join-url">—</div>
+            <p class="hint">Същият QR код е на първите два слайда. Резултатите: <a id="results-link" href="results.html" target="_blank" rel="noopener">/results</a> (стрелки или кликер, F за цял екран).</p>
+          </div>
+          <img class="qr-img" src="qr.svg" alt="QR код към играта" />
+        </div>
+      </section>
+    </div>
+
+    <!-- All games -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Всички игри</h2>
+        <button id="games-refresh" class="button small" type="button">Обнови</button>
+      </div>
+      <div style="overflow-x: auto;">
+        <table class="table" id="games-table">
+          <thead>
+            <tr>
+              <th>Код</th>
+              <th>Заглавие</th>
+              <th>Статус</th>
+              <th class="num">Отговори</th>
+              <th class="hide-sm">Създадена</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="hint" id="games-empty" hidden>Няма игри. Създайте първата отгоре.</p>
+    </section>
+  </main>
+
+  <script src="shared.js?v=20260927.1"></script>
+  <script src="admin.js?v=20260927.1"></script>
+</body>
+</html>

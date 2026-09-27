@@ -1,0 +1,68 @@
+<script>
+/* Live results on the "results" slide.
+   The results page of the game app is loaded lazily in an iframe and follows
+   this slide's fragments: fragment n shown = results step n. The page posts
+   {source: "intro-results", type: "ready"} whenever it has data; until then
+   the slide shows its own hand-raising ladder.
+   The server address sits in data-results and becomes data-src only here, at
+   run time: at render time pandoc would fetch a data-src and freeze a copy.
+   Open the deck with ?results=http://localhost:8004 to use a local server. */
+(function () {
+  var override = new URLSearchParams(window.location.search).get("results");
+  var frames = Array.prototype.slice.call(document.querySelectorAll("iframe.live-results"));
+  frames.forEach(function (frame) {
+    var base = (override || frame.getAttribute("data-results") || "").replace(/\/$/, "");
+    frame.setAttribute("data-src", base + "/results?embed=1");
+  });
+
+  var staleTimer = null;
+
+  function sectionOf(frame) { return frame.closest("section"); }
+
+  function post(frame, message) {
+    message.source = "intro-deck";
+    if (frame.contentWindow) frame.contentWindow.postMessage(message, "*");
+  }
+
+  function sendStep(frame) {
+    var section = sectionOf(frame);
+    post(frame, { type: "step", step: section.querySelectorAll(".fragment.visible").length });
+  }
+
+  window.addEventListener("message", function (event) {
+    var msg = event.data;
+    if (!msg || msg.source !== "intro-results" || msg.type !== "ready") return;
+    frames.forEach(function (frame) {
+      if (frame.contentWindow !== event.source) return;
+      clearTimeout(staleTimer);
+      sectionOf(frame).classList.add("live");
+      sendStep(frame);
+    });
+  });
+
+  function currentFrame() {
+    var slide = Reveal.getCurrentSlide();
+    return slide ? slide.querySelector("iframe.live-results") : null;
+  }
+
+  // Entering the slide: ask for fresh data; fall back to the ladder if the
+  // page does not answer within a few seconds (no connection, server down).
+  Reveal.on("slidechanged", function () {
+    var frame = currentFrame();
+    // Off the slide, reveal.js unloads the iframe: start the next visit from
+    // the ladder again, so an outage never shows a blank or error frame.
+    frames.forEach(function (f) { if (f !== frame) sectionOf(f).classList.remove("live"); });
+    if (!frame) return;
+    post(frame, { type: "refresh" });
+    sendStep(frame);
+    clearTimeout(staleTimer);
+    staleTimer = setTimeout(function () { sectionOf(frame).classList.remove("live"); }, 4000);
+  });
+  Reveal.on("ready", function () {
+    var frame = currentFrame();
+    if (frame && !frame.getAttribute("src")) frame.setAttribute("src", frame.getAttribute("data-src"));
+  });
+  Reveal.on("fragmentshown", function () { var f = currentFrame(); if (f) sendStep(f); });
+  Reveal.on("fragmenthidden", function () { var f = currentFrame(); if (f) sendStep(f); });
+})();
+</script>

@@ -1,0 +1,483 @@
+/*-- scss:defaults --*/
+
+// Palette
+$ink: #0E2A2F;        // dark slides, headings
+$ink-soft: #A9C3BF;   // secondary text on dark
+$light: #EEF3F0;      // text on dark
+$paper: #F1F4F0;      // light slides
+$card: #FAFBF9;       // cards on light slides
+$hairline: #D3DCD7;   // card borders
+$body-text: #3A5256;  // body text on light
+$teal: #146B62;       // eyebrows and labels on light
+$gold: #F2B134;       // accent
+
+// Program-scheme categories. Checked with the dataviz palette validator on
+// $paper: adjacent pairs clear the CVD and normal-vision floors; every block
+// also carries a direct label, which covers the light yellow's low contrast.
+$k-prog: #199e70;     // courses from the program
+$k-genb: #eda100;     // GENB, main scientific fields
+$k-proj: #d95926;     // seminar, project, practice, internship
+$k-gen: #256abf;      // general education: languages, Bulgarian, knowledge
+
+$font-family-sans-serif: 'Sofia Sans', Arial, sans-serif;
+$presentation-heading-font: 'Sofia Sans Extra Condensed', Arial, sans-serif;
+$presentation-heading-color: $ink;
+$presentation-font-size-root: 36px;
+$body-bg: $paper;
+$body-color: $ink;
+$link-color: $teal;
+
+/*-- scss:rules --*/
+
+$display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
+
+// Every slide is a fixed 1920×1080 poster; reveal.js scales it to the screen.
+.reveal .slides > section {
+  width: 1920px;
+  height: 1080px;
+  padding: 0 !important;
+  top: 0 !important;
+  box-sizing: border-box;
+}
+.reveal .slides > section > h2:empty { display: none; }
+
+.reveal .frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  box-sizing: border-box;
+  padding: 128px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  text-align: left;
+  color: $ink;
+  font-family: $font-family-sans-serif;
+  font-size: 36px;
+  line-height: 1.35;
+
+  p { margin: 0; line-height: inherit; }
+  div { min-width: 0; }
+
+  // frame variants
+  &.vcenter { justify-content: center; }
+  &.g32 { gap: 32px; }
+  &.g48 { gap: 48px; }
+  &.with-signoff { padding-bottom: 160px; }
+  &.tight { padding-top: 88px; padding-bottom: 72px; }
+  &.rule {
+    flex-direction: row;
+    gap: 128px;
+    background: linear-gradient(to right, $ink 0, $ink 560px, transparent 560px);
+  }
+
+  // layout
+  .row { display: flex; flex-direction: row; }
+  .col { display: flex; flex-direction: column; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grow { flex: 1; }
+  .spacer { flex: 1; }
+  .top { align-items: flex-start; }
+  .g8 { gap: 8px; }
+  .g12 { gap: 12px; }
+  .g16 { gap: 16px; }
+  .g24 { gap: 24px; }
+  .g32 { gap: 32px; }
+  .g40 { gap: 40px; }
+  .g64 { gap: 64px; }
+  .g96 { gap: 96px; }
+  .w400 { width: 400px; flex: none; }
+  .w440 { width: 440px; flex: none; }
+  .w1100 { max-width: 1100px; }
+  .w1300 { max-width: 1300px; }
+  .w1400 { max-width: 1400px; }
+  .w1500 { max-width: 1500px; }
+  .g4 { gap: 4px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+  .between { justify-content: space-between; }
+  .center { align-items: center; }
+  .baseline { align-items: baseline; }
+
+  .rule-panel { width: 432px; flex: none; display: flex; flex-direction: column; gap: 8px; }
+  .rule-body { flex: 1; display: flex; flex-direction: column; gap: 40px; }
+
+  // type scale: 220 / 112 / 64 / 36 / 24
+  .eyebrow {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: $teal;
+  }
+  .d220 { font-family: $display; font-size: 220px; font-weight: 800; line-height: .95; letter-spacing: -2px; }
+  .d112 { font-family: $display; font-size: 112px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+  .d64 { font-family: $display; font-size: 64px; font-weight: 800; line-height: 1.05; }
+  .t64 { font-size: 64px; font-weight: 400; line-height: 1.15; color: $body-text; }
+  .t36 { font-size: 36px; line-height: 1.35; color: $body-text; }
+  .t24 { font-size: 24px; line-height: 1.35; color: $body-text; }
+  .quote { font-size: 64px; font-style: italic; font-weight: 500; line-height: 1.2; color: $ink; }
+  .semibold { font-weight: 600; }
+  .bold { font-weight: 700; }
+  .italic { font-style: italic; }
+  .tc { text-align: center; }
+
+  // colours
+  .c-ink { color: $ink; }
+  .c-light { color: $light; }
+  .c-soft { color: $ink-soft; }
+  .c-body { color: $body-text; }
+  .c-teal { color: $teal; }
+  .c-gold { color: $gold; }
+
+  // components
+  .pill {
+    align-self: flex-start;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.3;
+    background: $gold;
+    color: $ink;
+    padding: 12px 32px;
+    border-radius: 48px;
+  }
+  .card {
+    background: $card;
+    border: 1px solid $hairline;
+    border-radius: 20px;
+    padding: 28px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card.email { padding: 32px; gap: 12px; }
+  .card.good { border: 2px solid $teal; }
+  .card.tall { height: 520px; box-sizing: border-box; padding: 40px; gap: 16px; }
+  .card.ink { background: $ink; border-color: $ink; color: $light; }
+  .divider { border-top: 2px solid $hairline; padding-top: 40px; display: flex; flex-direction: column; gap: 12px; }
+
+  .qr {
+    width: 440px;
+    height: 440px;
+    box-sizing: border-box;
+    background: $card;
+    border: 2px solid $hairline;
+    border-radius: 24px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: $ink;
+  }
+  .qr.on-dark { background: $paper; border-color: $paper; }
+  .qr p { margin: 0; line-height: 0; }
+  .qr img { width: 372px; height: 372px; max-width: none; max-height: none; margin: 0; }
+
+  .ruler { display: flex; flex-direction: column; gap: 12px; }
+  .ruler-labels p { display: flex; justify-content: space-between; font-size: 24px; font-weight: 700; line-height: 1.35; }
+  .ruler img { display: block; width: 1664px; height: 32px; max-width: none; max-height: none; margin: 0; }
+
+  .signoff {
+    position: absolute;
+    left: 128px;
+    bottom: 64px;
+    width: 1664px;
+    font-size: 24px;
+    line-height: 1.35;
+    color: $ink-soft;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Program scheme: categories, legend, credit map, year cards
+   --------------------------------------------------------------------------- */
+
+.reveal .slides {
+  .k-prog { --c: #{$k-prog}; --w: #{mix($k-prog, #ffffff, 24%)}; }
+  .k-genb { --c: #{$k-genb}; --w: #{mix($k-genb, #ffffff, 26%)}; }
+  .k-proj { --c: #{$k-proj}; --w: #{mix($k-proj, #ffffff, 22%)}; }
+  .k-gen  { --c: #{$k-gen};  --w: #{mix($k-gen, #ffffff, 20%)}; }
+  .k-grad { --c: #{$ink};    --w: #{$ink}; }
+}
+
+.reveal .frame {
+  .legend > p { display: flex; flex-wrap: wrap; gap: 12px 36px; }
+  .legend .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: $body-text;
+    white-space: nowrap;
+  }
+  .legend .chip::before {
+    content: "";
+    width: 32px;
+    height: 22px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background: var(--w);
+    border-top: 6px solid var(--c);
+  }
+  .legend .chip.k-grad::before { border-top-color: $ink; }
+
+  // Year cards: the deck's card with a category stripe on top.
+  .pcard {
+    background: $card;
+    border: 1px solid $hairline;
+    border-top: 8px solid var(--c);
+    border-radius: 20px;
+    padding: 24px 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 24px;
+    line-height: 1.35;
+    color: $body-text;
+  }
+  .pcard .num { font-weight: 700; color: $teal; }
+  .pcard .sem {
+    margin-top: 4px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: $body-text;
+  }
+  .pcard ul { margin: 0; padding-left: 1.1em; }
+  .pcard li { margin: 0; }
+  .pcard .code { color: #6A8084; white-space: nowrap; }
+  .pcard strong { color: $ink; }
+
+  // Credit map: a 30-column grid per semester, one column per credit.
+  .cmap { display: flex; flex-direction: column; gap: 10px; }
+  .cmap-part {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: $teal;
+    border-bottom: 2px solid $hairline;
+    padding: 4px 0 6px;
+  }
+  .cmap-year { display: flex; gap: 16px; align-items: stretch; }
+  .cmap-ylabel {
+    width: 150px;
+    flex: none;
+    padding-top: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: $ink;
+  }
+  .cmap-rows { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .cmap-row { display: flex; gap: 16px; align-items: center; }
+  .cmap-sem {
+    width: 64px;
+    flex: none;
+    text-align: right;
+    font-family: $display;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    color: $ink;
+  }
+  .cmap-cells {
+    flex: 1;
+    height: 52px;
+    display: grid;
+    grid-template-columns: repeat(30, minmax(0, 1fr));
+    column-gap: 6px;
+  }
+  .cmap-total { width: 96px; flex: none; font-size: 24px; color: $body-text; white-space: nowrap; }
+  .cell {
+    grid-row: 1;
+    box-sizing: border-box;
+    background: var(--w);
+    border-top: 6px solid var(--c);
+    border-radius: 6px;
+  }
+  .blk-label {
+    grid-row: 1;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px 0;
+    font-size: 24px;
+    line-height: 1.1;
+    color: $ink;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .blk-label b { font-weight: 700; }
+  .blk-label span { font-weight: 400; color: $body-text; white-space: pre; }
+  .blk-label.k-grad, .blk-label.k-grad span { color: $light; }
+  .cmap-sum {
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 12px;
+    white-space: nowrap;
+  }
+  .cmap-sum b { font-family: $display; font-size: 48px; font-weight: 800; line-height: 1; color: $ink; }
+  .cmap-sum span { font-size: 24px; line-height: 1.35; color: $body-text; }
+
+  // Year slides: the same rows, larger, with two-line labels.
+  .cmap.big { gap: 8px; }
+  .cmap.big .cmap-cells { height: 88px; }
+  .cmap.big .cmap-sem { width: 88px; font-size: 56px; }
+  .cmap.big .cmap-total { width: 88px; }
+  .cmap.big .blk-label { flex-direction: column; gap: 2px; }
+  .cmap.big .cmap-sum b { font-size: 56px; }
+}
+
+/* ---------------------------------------------------------------------------
+   Semester II animation: an absolutely positioned stage; reveal.js
+   auto-animate moves the cards between slides by their data-id.
+   --------------------------------------------------------------------------- */
+
+.reveal .slides > section .anim {
+  position: absolute;
+  left: 128px;
+  top: 72px;
+  width: 1664px;
+  height: 944px;
+  font-family: $font-family-sans-serif;
+  color: $ink;
+  text-align: left;
+
+  * { box-sizing: border-box; }
+  > div { position: absolute; }
+
+  .a-eyebrow {
+    left: 0; top: 0;
+    font-size: 24px; font-weight: 700; line-height: 1.35;
+    letter-spacing: 4px; text-transform: uppercase; color: $teal;
+  }
+  .a-title {
+    left: 0; top: 40px;
+    font-family: $display; font-size: 64px; font-weight: 800; line-height: 1.05;
+    white-space: nowrap;
+  }
+  .a-cap { left: 0; top: 118px; width: 1664px; font-size: 36px; line-height: 1.35; color: $body-text; }
+  .shelf-h, .row-h {
+    font-size: 22px; font-weight: 700; line-height: 1.35;
+    letter-spacing: 2px; text-transform: uppercase; color: #5E7478;
+    white-space: nowrap;
+  }
+  .row-h { color: $teal; }
+  .more { font-size: 36px; font-weight: 700; color: $body-text; }
+
+  .c {
+    height: 120px;
+    padding: 7px 10px 8px;
+    border-radius: 8px;
+    background: var(--w);
+    border-top: 6px solid var(--c);
+    overflow: hidden;
+    z-index: 2;
+  }
+  .c.moving { z-index: 5; }
+  .c .code { font-size: 18px; font-weight: 700; line-height: 1.2; color: $body-text; white-space: nowrap; margin-bottom: 4px; }
+  .c .t { font-size: 23px; font-weight: 650; line-height: 1.08; color: $ink; hyphens: manual; }
+  .c.long .t { font-size: 20px; line-height: 1.1; }
+  .c.xlong .t { font-size: 17px; line-height: 1.1; }
+  .c.off { opacity: 0.28; }
+  .gone { opacity: 0 !important; }
+
+  .slot {
+    height: 120px;
+    z-index: 1;
+    border: 2px dashed var(--c);
+    border-radius: 8px;
+    background: $card;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    line-height: 1.2;
+    color: $body-text;
+    padding: 6px;
+  }
+  .slot b { color: $ink; font-weight: 700; }
+  .badge { font-size: 20px; font-weight: 700; line-height: 1.3; color: $body-text; white-space: nowrap; }
+  .badge.cont { color: #8A5A00; }
+  .counter {
+    right: 0;
+    font-family: $display; font-size: 64px; font-weight: 800; line-height: 1;
+    white-space: nowrap; color: $ink;
+  }
+  .counter.full { color: $teal; }
+  .seg {
+    height: 100px;
+    border-radius: 8px;
+    background: var(--w);
+    border-top: 6px solid var(--c);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-align: center;
+  }
+  .seg b { font-size: 24px; font-weight: 700; }
+  .seg span { font-size: 22px; color: $body-text; }
+}
+
+/* ---------------------------------------------------------------------------
+   Results slide: live results from the game app (iframe, see live-results.html),
+   with the hand-raising ladder underneath as the offline fallback.
+   --------------------------------------------------------------------------- */
+
+.reveal .frame {
+  .rungs { position: relative; height: 56px; flex: none; }
+  .rung {
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $gold;
+    white-space: nowrap;
+  }
+  .rung::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -60px;
+    height: 52px;
+    border-left: 3px solid $gold;
+  }
+}
+
+.reveal .slides > section iframe.live-results {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  background: $ink;
+}
+.reveal .slides > section.live iframe.live-results { opacity: 1; }

@@ -1,0 +1,180 @@
+/*-- scss:defaults --*/
+
+// Palette
+$ink: #0E2A2F;        // dark slides, headings
+$ink-soft: #A9C3BF;   // secondary text on dark
+$light: #EEF3F0;      // text on dark
+$paper: #F1F4F0;      // light slides
+$card: #FAFBF9;       // cards on light slides
+$hairline: #D3DCD7;   // card borders
+$body-text: #3A5256;  // body text on light
+$teal: #146B62;       // eyebrows and labels on light
+$gold: #F2B134;       // accent
+
+$font-family-sans-serif: 'Sofia Sans', Arial, sans-serif;
+$presentation-heading-font: 'Sofia Sans Extra Condensed', Arial, sans-serif;
+$presentation-heading-color: $ink;
+$presentation-font-size-root: 36px;
+$body-bg: $paper;
+$body-color: $ink;
+$link-color: $teal;
+
+/*-- scss:rules --*/
+
+$display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
+
+// Every slide is a fixed 1920×1080 poster; reveal.js scales it to the screen.
+.reveal .slides > section {
+  width: 1920px;
+  height: 1080px;
+  padding: 0 !important;
+  top: 0 !important;
+  box-sizing: border-box;
+}
+.reveal .slides > section > h2:empty { display: none; }
+
+.reveal .frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  box-sizing: border-box;
+  padding: 128px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  text-align: left;
+  color: $ink;
+  font-family: $font-family-sans-serif;
+  font-size: 36px;
+  line-height: 1.35;
+
+  p { margin: 0; line-height: inherit; }
+  div { min-width: 0; }
+
+  // frame variants
+  &.vcenter { justify-content: center; }
+  &.g32 { gap: 32px; }
+  &.g48 { gap: 48px; }
+  &.with-signoff { padding-bottom: 160px; }
+  &.rule {
+    flex-direction: row;
+    gap: 128px;
+    background: linear-gradient(to right, $ink 0, $ink 560px, transparent 560px);
+  }
+
+  // layout
+  .row { display: flex; flex-direction: row; }
+  .col { display: flex; flex-direction: column; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grow { flex: 1; }
+  .spacer { flex: 1; }
+  .top { align-items: flex-start; }
+  .g8 { gap: 8px; }
+  .g12 { gap: 12px; }
+  .g16 { gap: 16px; }
+  .g24 { gap: 24px; }
+  .g32 { gap: 32px; }
+  .g40 { gap: 40px; }
+  .g64 { gap: 64px; }
+  .g96 { gap: 96px; }
+  .w400 { width: 400px; flex: none; }
+  .w440 { width: 440px; flex: none; }
+  .w1100 { max-width: 1100px; }
+  .w1300 { max-width: 1300px; }
+  .w1400 { max-width: 1400px; }
+  .w1500 { max-width: 1500px; }
+
+  .rule-panel { width: 432px; flex: none; display: flex; flex-direction: column; gap: 8px; }
+  .rule-body { flex: 1; display: flex; flex-direction: column; gap: 40px; }
+
+  // type scale: 220 / 112 / 64 / 36 / 24
+  .eyebrow {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: $teal;
+  }
+  .d220 { font-family: $display; font-size: 220px; font-weight: 800; line-height: .95; letter-spacing: -2px; }
+  .d112 { font-family: $display; font-size: 112px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+  .d64 { font-family: $display; font-size: 64px; font-weight: 800; line-height: 1.05; }
+  .t64 { font-size: 64px; font-weight: 400; line-height: 1.15; color: $body-text; }
+  .t36 { font-size: 36px; line-height: 1.35; color: $body-text; }
+  .t24 { font-size: 24px; line-height: 1.35; color: $body-text; }
+  .quote { font-size: 64px; font-style: italic; font-weight: 500; line-height: 1.2; color: $ink; }
+  .semibold { font-weight: 600; }
+  .bold { font-weight: 700; }
+  .italic { font-style: italic; }
+  .tc { text-align: center; }
+
+  // colours
+  .c-ink { color: $ink; }
+  .c-light { color: $light; }
+  .c-soft { color: $ink-soft; }
+  .c-body { color: $body-text; }
+  .c-teal { color: $teal; }
+  .c-gold { color: $gold; }
+
+  // components
+  .pill {
+    align-self: flex-start;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.3;
+    background: $gold;
+    color: $ink;
+    padding: 12px 32px;
+    border-radius: 48px;
+  }
+  .card {
+    background: $card;
+    border: 1px solid $hairline;
+    border-radius: 20px;
+    padding: 28px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card.email { padding: 32px; gap: 12px; }
+  .card.good { border: 2px solid $teal; }
+  .card.tall { height: 520px; box-sizing: border-box; padding: 40px; gap: 16px; }
+  .card.ink { background: $ink; border-color: $ink; color: $light; }
+  .divider { border-top: 2px solid $hairline; padding-top: 40px; display: flex; flex-direction: column; gap: 12px; }
+
+  .qr {
+    width: 440px;
+    height: 440px;
+    box-sizing: border-box;
+    background: $card;
+    border: 2px dashed $body-text;
+    border-radius: 24px;
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: $ink;
+  }
+  .qr.on-dark { background: $paper; }
+  .qr img { width: 344px; height: 344px; max-width: none; max-height: none; margin: 0; }
+
+  .ruler { display: flex; flex-direction: column; gap: 12px; }
+  .ruler-labels p { display: flex; justify-content: space-between; font-size: 24px; font-weight: 700; line-height: 1.35; }
+  .ruler img { display: block; width: 1664px; height: 32px; max-width: none; max-height: none; margin: 0; }
+
+  .signoff {
+    position: absolute;
+    left: 128px;
+    bottom: 64px;
+    width: 1664px;
+    font-size: 24px;
+    line-height: 1.35;
+    color: $ink-soft;
+  }
+}

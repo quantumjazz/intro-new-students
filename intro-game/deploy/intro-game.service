@@ -1,0 +1,17 @@
+[Unit]
+Description=Intro Game (Две трети от средното) for the first-year intro lecture
+After=network.target
+
+[Service]
+Type=simple
+User=victor
+WorkingDirectory=/home/victor/apps/intro-new-students/intro-game/backend
+Environment=PYTHONUNBUFFERED=1
+# Optional settings such as INTRO_ADMIN_KEY (mode 600, not in git); may be absent.
+EnvironmentFile=-/home/victor/apps/intro-new-students/intro-game/.env
+ExecStart=/usr/bin/python3 /home/victor/apps/intro-new-students/intro-game/backend/server.py --host 127.0.0.1 --port 8004
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

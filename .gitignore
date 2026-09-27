@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Quarto
+.quarto/
+*_files/
+
+# Local settings and data (never in git)
+.claude/
+intro-game/.env
+intro-game/backend/data/*.db
+intro-game/backend/data/*.db-shm
+intro-game/backend/data/*.db-wal

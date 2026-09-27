@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0E2A2F" />
+  <title>Първият ход е ваш</title>
+  <link rel="stylesheet" href="fonts.css?v=20260927.1" />
+  <link rel="stylesheet" href="styles.css?v=20260927.1" />
+</head>
+<body>
+  <header class="hero">
+    <div class="shell narrow">
+      <div class="eyebrow">Експеримент № 1</div>
+      <div class="hero-title">Първият ход<br />е ваш</div>
+    </div>
+  </header>
+
+  <main class="shell narrow">
+    <!-- LOADING -->
+    <section id="card-loading" class="panel">
+      <p class="lede" style="margin: 0;">Зареждане…</p>
+    </section>
+
+    <!-- NO GAME YET -->
+    <section id="card-waiting" class="panel" hidden>
+      <h1>Играта още не е започнала.</h1>
+      <p class="lede">Страницата ще се обнови сама, щом преподавателят я отвори.</p>
+    </section>
+
+    <!-- PLAY -->
+    <section id="card-play" class="panel" hidden>
+      <h1>Изберете число от 0 до 100.</h1>
+      <p class="lede">Печели този, чието число е най-близо до <strong>2/3 от средното</strong> за залата.</p>
+      <form id="play-form" class="grid" style="margin-top: 1.1rem;" novalidate>
+        <label>
+          <span>Вашето име</span>
+          <input id="play-name" name="name" maxlength="40" autocomplete="given-name"
+                 autocapitalize="words" required />
+        </label>
+        <label>
+          <span>Вашето число</span>
+          <input id="play-value" name="value" class="big-number" inputmode="decimal"
+                 autocomplete="off" placeholder="0–100" required />
+        </label>
+        <button class="button primary huge" type="submit">Изпрати</button>
+        <p class="hint" style="margin: 0;">Всяко число от 0 до 100 важи, цяло или десетично. Името се показва само ако спечелите.</p>
+      </form>
+      <p id="play-error" class="error" hidden></p>
+    </section>
+
+    <!-- SENT -->
+    <section id="card-sent" class="panel" hidden>
+      <div class="eyebrow">Отговорът е приет</div>
+      <div id="sent-value" class="sent-value">—</div>
+      <p id="sent-name" class="lede"></p>
+      <p class="hint">Можете да го промените, докато играта е отворена. Резултатите ще видите на екрана.</p>
+      <div class="actions">
+        <button id="sent-change" class="button" type="button">Промени отговора</button>
+      </div>
+    </section>
+
+    <!-- CLOSED, NOT YET REVEALED -->
+    <section id="card-closed" class="panel" hidden>
+      <h1>Играта е затворена.</h1>
+      <p id="closed-line" class="lede"></p>
+      <p class="hint">Гледайте екрана. Страницата ще покаже и вашето място, когато преподавателят реши.</p>
+    </section>
+
+    <!-- PERSONAL RESULT -->
+    <section id="card-result" class="panel" hidden>
+      <div class="eyebrow">Резултатът</div>
+      <div id="result-headline" class="result-headline">—</div>
+      <div class="stat-grid">
+        <div class="summary-stat"><span class="label">Вашето число</span><span class="value" id="r-value">—</span></div>
+        <div class="summary-stat gold"><span class="label">2/3 от средното</span><span class="value" id="r-target">—</span></div>
+        <div class="summary-stat"><span class="label">Средното</span><span class="value" id="r-mean">—</span></div>
+        <div class="summary-stat"><span class="label">Разлика</span><span class="value" id="r-distance">—</span></div>
+      </div>
+      <p id="r-level" class="lede"></p>
+      <p id="r-winners" class="hint"></p>
+    </section>
+  </main>
+
+  <script src="shared.js?v=20260927.1"></script>
+  <script src="app.js?v=20260927.1"></script>
+</body>
+</html>

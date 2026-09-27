@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Две трети от средното · резултати</title>
+  <link rel="stylesheet" href="fonts.css?v=20260927.1" />
+  <link rel="stylesheet" href="styles.css?v=20260927.1" />
+</head>
+<body class="projection">
+  <!-- A fixed 1920×1080 poster on the deck's grid; results.js scales it to the
+       window. Steps: 0 title · 1 count · 2 distribution · 3 mean · 4 two thirds ·
+       5 winner · 6 how many moves ahead. Keys: → ← PageDown PageUp Space, F, R.
+       ?embed=1 hides the key hints and takes steps from the deck (postMessage). -->
+  <div class="stage" id="stage">
+    <div class="s-eyebrow">Експеримент № 1 · резултатите</div>
+    <div class="s-headline" id="headline">Да видим какво решихте.</div>
+    <div class="s-note" id="note"></div>
+    <div class="s-tiles-wrap" id="tiles"></div>
+    <div class="s-chart"><svg id="chart" width="1920" height="1080" viewBox="0 0 1920 1080" role="img"
+         aria-label="Разпределение на отговорите от 0 до 100"></svg></div>
+    <div class="s-status" id="status"></div>
+    <div class="s-keys" id="keys">→ напред · ← назад · F цял екран · R обнови</div>
+  </div>
+
+  <script src="shared.js?v=20260927.1"></script>
+  <script src="results.js?v=20260927.1"></script>
+</body>
+</html>
