@@ -26,6 +26,7 @@ import urllib.request
 def request(method, url, *, body=None, headers=None, raw=False):
     data = None
     h = dict(headers or {})
+    h.setdefault("User-Agent", "intro-game-smoke-test")  # Cloudflare blocks Python's default agent
     if body is not None:
         data = json.dumps(body).encode("utf-8")
         h.setdefault("Content-Type", "application/json")
