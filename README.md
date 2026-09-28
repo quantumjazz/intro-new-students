@@ -6,7 +6,9 @@
 | | |
 |---|---|
 | Слайдовете | [quantumjazz.github.io/intro-new-students/vavedenie.html](https://quantumjazz.github.io/intro-new-students/vavedenie.html) |
-| Играта „Две трети от средното“ | [intro.visiometrica.com](https://intro.visiometrica.com) |
+| Играта „Две трети от средното“ (студентите) | [intro.visiometrica.com](https://intro.visiometrica.com) |
+| Админ страница на играта | [intro.visiometrica.com/admin](https://intro.visiometrica.com/admin) |
+| Резултатите (на проектора) | [intro.visiometrica.com/results](https://intro.visiometrica.com/results) |
 
 ## Играта
 

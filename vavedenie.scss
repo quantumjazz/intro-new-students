@@ -4,7 +4,7 @@
 $ink: #0E2A2F;        // dark slides, headings
 $ink-soft: #A9C3BF;   // secondary text on dark
 $light: #EEF3F0;      // text on dark
-$paper: #F1F4F0;      // light slides
+$paper: #FFFFFF;      // slide background: plain white
 $card: #FAFBF9;       // cards on light slides
 $hairline: #D3DCD7;   // card borders
 $body-text: #3A5256;  // body text on light
@@ -70,13 +70,13 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
   &.rule {
     flex-direction: row;
     gap: 128px;
-    background: linear-gradient(to right, $ink 0, $ink 560px, transparent 560px);
   }
 
   // layout
   .row { display: flex; flex-direction: row; }
   .col { display: flex; flex-direction: column; }
   .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .d112, .d220 { text-wrap: balance; }
   .grow { flex: 1; }
   .spacer { flex: 1; }
   .top { align-items: flex-start; }
@@ -105,16 +105,14 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
 
   // type scale: 220 / 112 / 64 / 36 / 24
   .eyebrow {
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 600;
     line-height: 1.35;
-    letter-spacing: 4px;
-    text-transform: uppercase;
     color: $teal;
   }
   .d220 { font-family: $display; font-size: 220px; font-weight: 800; line-height: .95; letter-spacing: -2px; }
   .d112 { font-family: $display; font-size: 112px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
-  .d64 { font-family: $display; font-size: 64px; font-weight: 800; line-height: 1.05; }
+  .d64 { font-size: 48px; font-weight: 700; line-height: 1.15; }
   .t64 { font-size: 64px; font-weight: 400; line-height: 1.15; color: $body-text; }
   .t36 { font-size: 36px; line-height: 1.35; color: $body-text; }
   .t24 { font-size: 24px; line-height: 1.35; color: $body-text; }
@@ -126,45 +124,34 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
 
   // colours
   .c-ink { color: $ink; }
-  .c-light { color: $light; }
-  .c-soft { color: $ink-soft; }
   .c-body { color: $body-text; }
   .c-teal { color: $teal; }
-  .c-gold { color: $gold; }
 
   // components
-  .pill {
-    align-self: flex-start;
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1.3;
-    background: $gold;
-    color: $ink;
-    padding: 12px 32px;
-    border-radius: 48px;
-  }
   .card {
-    background: $card;
-    border: 1px solid $hairline;
-    border-radius: 20px;
-    padding: 28px 40px;
+    border-top: 2px solid $ink;
+    padding: 24px 0 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  .card.email { padding: 32px; gap: 12px; }
+  // The two example emails keep a box: there it stands for a real object.
+  .card.email {
+    background: $card;
+    border: 1px solid $hairline;
+    border-radius: 12px;
+    padding: 32px;
+    gap: 12px;
+  }
   .card.good { border: 2px solid $teal; }
-  .card.tall { height: 520px; box-sizing: border-box; padding: 40px; gap: 16px; }
-  .card.ink { background: $ink; border-color: $ink; color: $light; }
+  .topic { min-height: calc(2 * 1.35em); }
   .divider { border-top: 2px solid $hairline; padding-top: 40px; display: flex; flex-direction: column; gap: 12px; }
 
   .qr {
     width: 440px;
     height: 440px;
     box-sizing: border-box;
-    background: $card;
-    border: 2px solid $hairline;
-    border-radius: 24px;
+    background: $paper;
     padding: 32px;
     display: flex;
     align-items: center;
@@ -175,13 +162,28 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
     line-height: 1.3;
     color: $ink;
   }
-  .qr.on-dark { background: $paper; border-color: $paper; }
   .qr p { margin: 0; line-height: 0; }
   .qr img { width: 372px; height: 372px; max-width: none; max-height: none; margin: 0; }
 
   .ruler { display: flex; flex-direction: column; gap: 12px; }
   .ruler-labels p { display: flex; justify-content: space-between; font-size: 24px; font-weight: 700; line-height: 1.35; }
   .ruler img { display: block; width: 1664px; height: 32px; max-width: none; max-height: none; margin: 0; }
+
+  // Last slide: a small QR to the slides, bottom right, clear of the headline.
+  .qr-corner {
+    position: absolute;
+    right: 128px;
+    bottom: 120px;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    line-height: 1.35;
+  }
+  .qr-corner p { margin: 0; }
+  .qr-corner img { display: block; width: 240px; height: 240px; max-width: none; max-height: none; margin: 0; }
 
   .signoff {
     position: absolute;
@@ -190,7 +192,7 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
     width: 1664px;
     font-size: 24px;
     line-height: 1.35;
-    color: $ink-soft;
+    color: $body-text;
   }
 }
 
@@ -229,13 +231,10 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
   }
   .legend .chip.k-grad::before { border-top-color: $ink; }
 
-  // Year cards: the deck's card with a category stripe on top.
+  // Year cards: a column under a straight rule in the category colour.
   .pcard {
-    background: $card;
-    border: 1px solid $hairline;
-    border-top: 8px solid var(--c);
-    border-radius: 20px;
-    padding: 24px 32px 28px;
+    border-top: 6px solid var(--c);
+    padding: 20px 0 0;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -246,10 +245,8 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
   .pcard .num { font-weight: 700; color: $teal; }
   .pcard .sem {
     margin-top: 4px;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
     color: $body-text;
   }
   .pcard ul { margin: 0; padding-left: 1.1em; }
@@ -260,11 +257,9 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
   // Credit map: a 30-column grid per semester, one column per credit.
   .cmap { display: flex; flex-direction: column; gap: 10px; }
   .cmap-part {
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 26px;
+    font-weight: 600;
     line-height: 1.35;
-    letter-spacing: 3px;
-    text-transform: uppercase;
     color: $teal;
     border-bottom: 2px solid $hairline;
     padding: 4px 0 6px;
@@ -362,18 +357,16 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
 
   .a-eyebrow {
     left: 0; top: 0;
-    font-size: 24px; font-weight: 700; line-height: 1.35;
-    letter-spacing: 4px; text-transform: uppercase; color: $teal;
+    font-size: 28px; font-weight: 600; line-height: 1.35; color: $teal;
   }
   .a-title {
-    left: 0; top: 40px;
-    font-family: $display; font-size: 64px; font-weight: 800; line-height: 1.05;
+    left: 0; top: 48px;
+    font-size: 48px; font-weight: 700; line-height: 1.15;
     white-space: nowrap;
   }
   .a-cap { left: 0; top: 118px; width: 1664px; font-size: 36px; line-height: 1.35; color: $body-text; }
   .shelf-h, .row-h {
-    font-size: 22px; font-weight: 700; line-height: 1.35;
-    letter-spacing: 2px; text-transform: uppercase; color: #5E7478;
+    font-size: 24px; font-weight: 600; line-height: 1.35; color: #5E7478;
     white-space: nowrap;
   }
   .row-h { color: $teal; }
@@ -442,28 +435,6 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
    with the hand-raising ladder underneath as the offline fallback.
    --------------------------------------------------------------------------- */
 
-.reveal .frame {
-  .rungs { position: relative; height: 56px; flex: none; }
-  .rung {
-    position: absolute;
-    bottom: 0;
-    transform: translateX(-50%);
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1.2;
-    color: $gold;
-    white-space: nowrap;
-  }
-  .rung::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -60px;
-    height: 52px;
-    border-left: 3px solid $gold;
-  }
-}
-
 .reveal .slides > section iframe.live-results {
   position: absolute;
   left: 0;
@@ -478,6 +449,6 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease;
-  background: $ink;
+  background: $paper;
 }
 .reveal .slides > section.live iframe.live-results { opacity: 1; }

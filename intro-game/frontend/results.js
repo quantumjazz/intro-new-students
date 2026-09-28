@@ -157,7 +157,7 @@
     svg("line", { x1: xt, x2: xt, y1: CHART_TOP - 20, y2: BASE_Y, class: "target-line" }, targetG);
     const targetLabel = svg("g", { class: "fade", id: "target-label" }, root);
     const targetText = svg("text", {
-      x: xt - 14, y: LABEL_Y, "text-anchor": "end", class: "line-label gold",
+      x: xt - 14, y: LABEL_Y, "text-anchor": "end", class: "line-label accent",
     }, targetLabel, `2/3 = ${fmtNum(data.target, 1)}`);
     const wt = textWidth(targetText);
     const wm = textWidth(meanText);
@@ -186,7 +186,7 @@
       svg("line", { x1: xr, x2: xr, y1: CHART_TOP - 30, y2: BASE_Y, class: "rung-line" }, rungG);
       svg("text", {
         x: xr, y: LABEL_Y, "text-anchor": "middle",
-        class: `rung-label${isTarget ? " gold" : ""}`,
+        class: `rung-label${isTarget ? " accent" : ""}`,
       }, rungG, RUNG_MARK[lv.key]);
     });
 
@@ -213,8 +213,8 @@
     });
   }
 
-  function tile({ label, value, sub, gold, name, on }) {
-    return `<div class="tile${gold ? " gold" : ""}" data-on="${on}">
+  function tile({ label, value, sub, accent, name, on }) {
+    return `<div class="tile${accent ? " accent" : ""}" data-on="${on}">
       <div class="t-label">${label}</div>
       <div class="t-value${name ? " name" : ""}">${value}</div>
       ${sub ? `<div class="t-sub">${sub}</div>` : ""}
@@ -231,7 +231,7 @@
     const main = [
       { label: "Отговори", value: String(data.count), on: 1 },
       { label: "Средното", value: fmtNum(data.mean, 1), on: 3 },
-      { label: "2/3 от средното", value: fmtNum(data.target, 1), gold: true, on: 4 },
+      { label: "2/3 от средното", value: fmtNum(data.target, 1), accent: true, on: 4 },
       {
         label: single ? "Победител" : "Победители",
         value: esc(single ? w[0].name : `${w.length} души`),
@@ -239,14 +239,14 @@
           ? `с числото ${fmtNum(w[0].value, 2)}`
           : w.slice(0, 3).map((p) => `${p.name} (${fmtNum(p.value, 2)})`).join(", ")
             + (w.length > 3 ? ` и още ${w.length - 3}` : "")),
-        gold: true, name: true, on: 5,
+        accent: true, name: true, on: 5,
       },
     ];
     const levels = data.levels.map((lv) => ({
-      label: esc(lv.label),
+      label: esc(lv.label.charAt(0).toUpperCase() + lv.label.slice(1)),
       value: String(lv.count),
-      sub: LEVEL_SUB[lv.key] + (lv.key === data.target_level ? " · тук е целта" : ""),
-      gold: lv.key === data.target_level,
+      sub: LEVEL_SUB[lv.key] + (lv.key === data.target_level ? ", тук е целта" : ""),
+      accent: lv.key === data.target_level,
       on: 6,
     }));
     els.tiles.innerHTML = `
@@ -262,20 +262,20 @@
     const hasData = ready && data.count > 0;
     const s = hasData ? step : 0;
 
-    let headline = "Да видим какво решихте.";
+    let headline = "Да видим какво решихте";
     let note = "";
     if (!data) {
       note = "Свързване със сървъра…";
     } else if (!data.game) {
-      headline = "Няма игра.";
+      headline = "Няма игра";
       note = "Създайте я от админ страницата.";
     } else if (!ready) {
       note = step > 0
         ? `Играта е още отворена: затворете я от админ страницата. ${plural(data.count, "отговор", "отговора")} до момента.`
         : `${plural(data.count, "отговор", "отговора")} до момента.`;
-      if (step > 0) headline = "Играта е още отворена.";
+      if (step > 0) headline = "Играта е още отворена";
     } else if (!data.count) {
-      headline = "Никой не отговори.";
+      headline = "Никой не отговори";
     }
     els.headline.textContent = headline;
     els.headline.style.opacity = s === 0 ? "1" : "0";

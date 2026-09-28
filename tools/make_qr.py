@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Write the game's QR code as a crisp SVG for the slides and the admin page.
+"""Write the deck's QR codes as crisp SVGs.
 
-    python3 tools/make_qr.py [URL]
+    python3 tools/make_qr.py [GAME_URL]
 
-Default URL: https://intro.visiometrica.com. Outputs img/qr-intro.svg (deck)
-and intro-game/frontend/qr.svg (admin page). Needs the `qrcode` package
-(pip install qrcode); it only builds the module matrix, the SVG is ours.
+- The game, https://intro.visiometrica.com by default: img/qr-intro.svg
+  (slides 1 and 2) and intro-game/frontend/qr.svg (admin page).
+- The slides on GitHub Pages: img/qr-slides.svg (last slide).
+
+Needs the `qrcode` package (pip install qrcode); it only builds the module
+matrix, the SVG is ours.
 """
 
 import sys
@@ -16,6 +19,7 @@ from qrcode.constants import ERROR_CORRECT_L
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_URL = "https://intro.visiometrica.com"
+SLIDES_URL = "https://quantumjazz.github.io/intro-new-students/vavedenie.html"
 INK = "#0E2A2F"
 
 
@@ -47,11 +51,16 @@ def qr_svg(url, border=2):
 
 
 def main():
-    url = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_URL
-    svg, version = qr_svg(url)
-    for target in (ROOT / "img" / "qr-intro.svg", ROOT / "intro-game" / "frontend" / "qr.svg"):
-        target.write_text(svg, encoding="utf-8")
-        print(f"wrote {target.relative_to(ROOT)}  ({url}, version {version})")
+    game_url = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_URL
+    jobs = [
+        (game_url, [ROOT / "img" / "qr-intro.svg", ROOT / "intro-game" / "frontend" / "qr.svg"]),
+        (SLIDES_URL, [ROOT / "img" / "qr-slides.svg"]),
+    ]
+    for url, targets in jobs:
+        svg, version = qr_svg(url)
+        for target in targets:
+            target.write_text(svg, encoding="utf-8")
+            print(f"wrote {target.relative_to(ROOT)}  ({url}, version {version})")
 
 
 if __name__ == "__main__":

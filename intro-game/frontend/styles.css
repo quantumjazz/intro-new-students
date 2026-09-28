@@ -350,7 +350,7 @@ input.big-number {
    ====================================================================== */
 
 body.projection {
-  background: var(--ink);
+  background: #FFFFFF;
   overflow: hidden;
   min-height: 0;
   height: 100vh;
@@ -358,14 +358,15 @@ body.projection {
 }
 body.projection.embed { background: transparent; }
 
+/* White like the slides: ink for data, teal for the one highlighted value. */
 .stage {
   position: absolute;
   left: 0;
   top: 0;
   width: 1920px;
   height: 1080px;
-  background: var(--ink);
-  color: var(--light);
+  background: #FFFFFF;
+  color: var(--ink);
   transform-origin: 0 0;
   font-family: var(--sans);
   overflow: hidden;
@@ -374,19 +375,18 @@ body.projection.embed { background: transparent; }
 
 .stage .s-eyebrow {
   left: 128px; top: 128px;
-  font-size: 24px; font-weight: 700; line-height: 1.35;
-  letter-spacing: 4px; text-transform: uppercase;
-  color: var(--gold);
+  font-size: 28px; font-weight: 600; line-height: 1.35;
+  color: var(--accent);
 }
 .stage .s-headline {
-  left: 128px; top: 192px; width: 1300px;
+  left: 128px; top: 198px; width: 1300px;
   font-family: var(--display); font-weight: 800;
   font-size: 220px; line-height: 0.95; letter-spacing: -2px;
   transition: opacity 400ms ease;
 }
 .stage .s-note {
   left: 128px; top: 640px; width: 1400px;
-  font-size: 36px; line-height: 1.35; color: var(--soft);
+  font-size: 36px; line-height: 1.35; color: var(--body);
   transition: opacity 400ms ease;
 }
 
@@ -403,50 +403,47 @@ body.projection.embed { background: transparent; }
   transition: opacity 450ms ease, transform 450ms ease;
 }
 .stage .tile.on { opacity: 1; transform: none; }
-.stage .tile .t-label {
-  font-size: 24px; font-weight: 700; line-height: 1.35;
-  letter-spacing: 3px; text-transform: uppercase; color: var(--soft);
-}
+.stage .tile .t-label { font-size: 26px; font-weight: 600; line-height: 1.35; color: var(--body); }
 .stage .tile .t-value {
   font-family: var(--display); font-weight: 800;
   font-size: 112px; line-height: 1; letter-spacing: -1px;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .stage .tile .t-value.name { font-size: 88px; }
-.stage .tile .t-sub { font-size: 24px; line-height: 1.35; color: var(--soft); }
-.stage .tile.gold .t-value, .stage .tile.gold .t-label { color: var(--gold); }
+.stage .tile .t-sub { font-size: 24px; line-height: 1.35; color: var(--body); }
+.stage .tile.accent .t-value, .stage .tile.accent .t-label { color: var(--accent); }
 .stage .s-tiles.levels .t-value { font-size: 96px; }
-.stage .s-tiles.levels .tile { border-top: 3px solid rgba(169, 195, 191, 0.35); padding-top: 12px; }
-.stage .s-tiles.levels .tile.gold { border-top-color: var(--gold); }
+.stage .s-tiles.levels .tile { border-top: 2px solid var(--line); padding-top: 12px; }
+.stage .s-tiles.levels .tile.accent { border-top-color: var(--accent); }
 
 .stage .s-chart { left: 0; top: 0; width: 1920px; height: 1080px; }
 .stage .s-chart svg { position: absolute; left: 0; top: 0; overflow: visible; }
 
-.stage .dot { fill: var(--light); opacity: 0; transition: opacity 500ms ease, fill 400ms ease; }
-.stage .dots-on .dot { opacity: 0.92; }
-.stage .dot.winner { fill: var(--gold); }
-.stage .ring { fill: none; stroke: var(--gold); stroke-width: 3; opacity: 0; transition: opacity 400ms ease; }
+.stage .dot { fill: #7F9794; opacity: 0; transition: opacity 500ms ease, fill 400ms ease; }
+.stage .dots-on .dot { opacity: 0.9; }
+.stage .dot.winner { fill: var(--accent); }
+.stage .ring { fill: none; stroke: var(--accent); stroke-width: 3; opacity: 0; transition: opacity 400ms ease; }
 .stage .fade { opacity: 0; transition: opacity 450ms ease; }
 .stage .fade.on { opacity: 1; }
-.stage .axis-line { stroke: var(--soft); stroke-width: 2; fill: none; }
-.stage .axis-label { fill: var(--soft); font-size: 24px; font-weight: 700; }
-.stage .mean-line { stroke: var(--light); stroke-width: 3; stroke-dasharray: 10 8; }
-.stage .target-line { stroke: var(--gold); stroke-width: 4; }
-.stage .line-label { font-size: 30px; font-weight: 700; fill: var(--light); }
-.stage .line-label.gold { fill: var(--gold); }
-.stage .rung-line { stroke: var(--soft); stroke-width: 2; stroke-dasharray: 3 7; }
-.stage .rung-label { font-size: 30px; font-weight: 700; fill: var(--soft); }
-.stage .rung-label.gold { fill: var(--gold); }
-.stage .arrow { stroke: var(--gold); stroke-width: 3; fill: none; }
-.stage .arrow-head { fill: var(--gold); }
+.stage .axis-line { stroke: var(--body); stroke-width: 2; fill: none; }
+.stage .axis-label { fill: var(--body); font-size: 24px; font-weight: 700; }
+.stage .mean-line { stroke: var(--ink); stroke-width: 3; stroke-dasharray: 10 8; }
+.stage .target-line { stroke: var(--accent); stroke-width: 4; }
+.stage .line-label { font-size: 30px; font-weight: 700; fill: var(--ink); }
+.stage .line-label.accent { fill: var(--accent); }
+.stage .rung-line { stroke: #9FB3B0; stroke-width: 2; stroke-dasharray: 3 7; }
+.stage .rung-label { font-size: 30px; font-weight: 700; fill: #5E7478; }
+.stage .rung-label.accent { fill: var(--accent); }
+.stage .arrow { stroke: var(--accent); stroke-width: 3; fill: none; }
+.stage .arrow-head { fill: var(--accent); }
 
 .stage .s-status {
   left: 128px; top: 1000px;
-  font-size: 24px; line-height: 1.35; color: var(--soft);
+  font-size: 24px; line-height: 1.35; color: var(--muted);
 }
 .stage .s-keys {
   right: 128px; top: 1000px;
-  font-size: 24px; line-height: 1.35; color: rgba(169, 195, 191, 0.7);
+  font-size: 24px; line-height: 1.35; color: var(--muted);
   transition: opacity 600ms ease;
 }
 body.embed .stage .s-keys, body.embed .stage .s-status { display: none; }

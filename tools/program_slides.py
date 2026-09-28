@@ -69,14 +69,14 @@ SEMESTERS = {
 GRADUATION = (GRAD, 10, 1, "Дипломиране", "теза или държавен изпит")
 
 YEARS = [
-    ("1 година", ["I", "II"]),
-    ("2 година", ["III", "IV"]),
-    ("3 година", ["V", "VI"]),
-    ("4 година", ["VII", "VIII"]),
+    ("Първа<br>година", ["I", "II"]),
+    ("Втора<br>година", ["III", "IV"]),
+    ("Трета<br>година", ["V", "VI"]),
+    ("Четвърта<br>година", ["VII", "VIII"]),
 ]
 PARTS = {
-    0: "I част · 1–2 година · Факултет за базово образование",
-    2: "II част · 3–4 година · Бакалавърски факултет",
+    0: "Първа и втора година: Факултет за базово образование",
+    2: "Трета и четвърта година: Бакалавърски факултет",
 }
 
 # Rough width of a 24px Sofia Sans label, used to decide whether the detail fits.
@@ -95,7 +95,7 @@ def block_cells(blocks, credit_px, two_lines):
             )
         credits_text = f"{credits} кр."
         if two_lines:
-            sub = " · ".join(x for x in (credits_text, detail) if x)
+            sub = ", ".join(x for x in (credits_text, detail) if x)
             if len(sub) * CHAR_PX > credits * credit_px - 20:
                 sub = detail or credits_text  # narrow cell: keep the more telling half
             label = f"<b>{escape(name)}</b><span>{escape(sub)}</span>"
@@ -121,7 +121,7 @@ def row_html(sem, blocks, credit_px, two_lines, total="30 кр."):
 def graduation_row(credit_px, two_lines, note):
     kind, credits, _, name, detail = GRADUATION
     label = (
-        f"<b>{name}</b><span>{credits} кр. · {detail}</span>" if two_lines
+        f"<b>{name}</b><span>{credits} кр., {detail}</span>" if two_lines
         else f"<b>{name}</b><span> · {credits} кр.</span>"
     )
     return (
@@ -156,7 +156,7 @@ def credit_map():
         )
     note = (
         '<b>Общо 250 кредита</b>'
-        '<span>8 семестъра × 30 кр. + 10 кр. · и 1 курс по спорт без кредити</span>'
+        '<span>8 семестъра × 30 кр. + 10 кр.; спортът е без кредити</span>'
     )
     out.append(
         '<div class="cmap-year cmap-grad fragment" data-fragment-index="5">'
@@ -235,7 +235,7 @@ PASSED = {
     4: ["OOOK051", "OOOK109", "OOOK159", "OOOK233", "OOOK287", "OOOK325", "OOOK107"],
 }
 CONTINUES = ["GENB015", "OOOK800"]   # two-semester courses carried over from I
-COUNTER = ["0 / 30 кр.", "15 / 30 кр.", "21 / 30 кр.", "27 / 30 кр.", "30 / 30 кр. ✓", "30 / 30 кр. ✓"]
+COUNTER = ["0 / 30 кр.", "15 / 30 кр.", "21 / 30 кр.", "27 / 30 кр.", "30 / 30 кр.", "30 / 30 кр."]
 
 TITLES = [
     ("title-0", "II семестър: от каталога към програмата на студента"),
@@ -247,21 +247,21 @@ TITLES = [
 ]
 CAPTIONS = [
     "Каталогът предлага курсове; програмната схема казва колко и от какъв вид. Общо 30 кредита.",
-    "1 · Курсове от програмата: 5 от предложените 6, общо 15 кредита.",
-    "2 · Двусеместриалните курсове продължават от I семестър: GENB и български език.",
-    "3 · Чужд език според нивото: 6 кредита.",
-    "4 · Един курс за знания, по правило от друга област: 3 кредита. Семестърът е пълен.",
+    "1. Курсове от програмата: 5 от предложените 6, общо 15 кредита.",
+    "2. Двусеместриалните курсове продължават от I семестър: GENB и български език.",
+    "3. Чужд език според нивото: 6 кредита.",
+    "4. Един курс за знания, по правило от друга област: 3 кредита. Семестърът е пълен.",
     "Същият ред като II семестър в картата, но с курсовете на един студент.",
 ]
 SHELVES = [
-    ("sh-prog", 0, S1 - 34, "Курсове от програмата · избират се 5 от 6"),
-    ("sh-genb", RIGHT, S1 - 34, "GENB · продължава от I семестър"),
-    ("sh-fl", 0, S2 - 34, "Чужд език · според нивото (6 езика, A1–C2)"),
-    ("sh-bg", RIGHT, S2 - 34, "Български език · продължава"),
-    ("sh-kn", 0, S3 - 34, "Курсове за знания · 1 по избор (77 в каталога)"),
+    ("sh-prog", 0, S1 - 34, "Курсове от програмата: избират се 5 от 6"),
+    ("sh-genb", RIGHT, S1 - 34, "GENB: продължава от I семестър"),
+    ("sh-fl", 0, S2 - 34, "Чужд език според нивото (6 езика, A1–C2)"),
+    ("sh-bg", RIGHT, S2 - 34, "Български език: продължава"),
+    ("sh-kn", 0, S3 - 34, "Курсове за знания: 1 по избор (77 в каталога)"),
 ]
 SEGMENTS = [
-    (0, 5, PROG, "Курсове от програмата", "15 кр. · 5 от 6 курса"),
+    (0, 5, PROG, "Курсове от програмата", "15 кр., 5 от 6 курса"),
     (5, 1, GENB, "GENB", "1 от 2"),
     (6, 2, GEN, "Чужд език", "6 кр."),
     (8, 1, GEN, "Бълг. език", "3 кр."),
@@ -301,7 +301,7 @@ def anim_step(step):
 
     items = []
     title_id, title = TITLES[step]
-    items.append('<div class="a-eyebrow" data-id="eyebrow">Пример · II семестър</div>')
+    items.append('<div class="a-eyebrow" data-id="eyebrow">Пример</div>')
     items.append(f'<div class="a-title" data-id="{title_id}">{escape(title)}</div>')
     items.append(f'<div class="a-cap" data-id="cap-{step}">{escape(CAPTIONS[step])}</div>')
 
@@ -328,15 +328,15 @@ def anim_step(step):
 
     if step >= 1:
         cls = "badge gone" if last else "badge"
-        items.append(f'<div class="{cls}" data-id="b-BAEB045" style="left:{3 * P}px;top:{S1 + H + 4}px;">не е избран · 5 от 6</div>')
+        items.append(f'<div class="{cls}" data-id="b-BAEB045" style="left:{3 * P}px;top:{S1 + H + 4}px;">не е избран (5 от 6)</div>')
     if step >= 2:
         for code in CONTINUES:
             items.append(
                 f'<div class="badge cont" data-id="b-{code}" '
-                f'style="left:{unit_x(placed[code])}px;top:{row_top - 30}px;">↻ от I семестър</div>'
+                f'style="left:{unit_x(placed[code])}px;top:{row_top - 30}px;">от I семестър</div>'
             )
 
-    row_label = "Програма на студента: кои курсове" if last else "Програма на студента · II семестър"
+    row_label = "Програма на студента: кои курсове" if last else "Програма на студента"
     items.append(f'<div class="row-h" data-id="rowlabel" style="left:0px;top:{row_top - 68}px;">{row_label}</div>')
     full = " full" if step >= 4 else ""
     items.append(f'<div class="counter{full}" data-id="counter" style="top:{row_top - 100}px;">{COUNTER[step]}</div>')
