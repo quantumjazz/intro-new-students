@@ -145,6 +145,8 @@ $display: 'Sofia Sans Extra Condensed', Arial, sans-serif;
   }
   .card.good { border: 2px solid $teal; }
   .topic { min-height: calc(2 * 1.35em); }
+  .plain-list ul { margin: 8px 0 0; padding-left: 1.1em; }
+  .plain-list li { margin: 6px 0; }
   .divider { border-top: 2px solid $hairline; padding-top: 40px; display: flex; flex-direction: column; gap: 12px; }
 
   .qr {
