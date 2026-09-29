@@ -1823,7 +1823,7 @@ e-edu.nbu.bg
 :::
 
 ::: {.t36 .bold .c-ink}
-am@nbu.bg
+ask.am@nbu.bg
 :::
 
 ::::
